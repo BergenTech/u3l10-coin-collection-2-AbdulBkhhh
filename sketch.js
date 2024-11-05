@@ -21,8 +21,8 @@ function initializeGame() {
   newCoin();
   
   // Initialize obstacle position
-  obstacleX = 0;
-  obstacleY = random(20, height-20);
+  obstacleX = random(width);
+  obstacleY = 0;
 }
 
 function draw() {
@@ -51,7 +51,7 @@ function draw() {
 
 function drawPlayer() {
   fill(0, 0, 255);  // Blue player
-  circle(playerX, playerY, 20);
+  circle(playerX, playerY, 40);
 }
 
 function drawCoin() {
@@ -90,6 +90,9 @@ function movePlayer() {
 
 function moveObstacle() {
   obstacleY+=speed
+  if(obstacleY>=height){
+    obstacleY=0
+  }
   // TODO: Move obstacle from left to right
   // HINT: Increase obstacleX by obstacleSpeed
   
@@ -120,7 +123,8 @@ function displayStats() {
   fill(0);
   textSize(16);
   text("Score: " + score, 10, 20);
-  text("Hits:" + hits, 20, 30)
+  text("Hits:" + hits, 75, 20)
+  text("Speed:"+ speed, 130,20)
   // TODO: Add display for hits and speed
 }
 
