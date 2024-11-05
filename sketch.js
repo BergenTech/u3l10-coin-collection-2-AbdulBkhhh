@@ -93,6 +93,7 @@ function moveObstacle() {
   if(obstacleY>=height){
     obstacleX = random(width)
     obstacleY=0
+    speed+=0.5
   }
   // TODO: Move obstacle from left to right
   // HINT: Increase obstacleX by obstacleSpeed
@@ -106,6 +107,7 @@ function checkCoinCollection() {
   if(dist(playerX,playerY,coinX,coinY)<15){
     score++
     initializeGame()
+    speed+=0.5
   }
   // TODO: Check if player touches coin
   // HINT: Use dist(playerX, playerY, coinX, coinY)
@@ -134,9 +136,9 @@ function checkCollisions() {
 function displayStats() {
   fill(0);
   textSize(16);
-  text("Score: " + score, 10, 20);
-  text("Hits:" + hits, 75, 20)
-  text("Speed:"+ speed, 130,20)
+  text("Score: " + score, 30, 20);
+  text("Hits:" + hits, 95, 20)
+  text("Speed:"+ speed, 160,20)
   // TODO: Add display for hits and speed
 }
 
@@ -179,7 +181,9 @@ function resetGame() {
 }
 
 function keyPressed() {
-  
+  if(key === 'r' || key === 'R'){
+    resetGame()
+  } 
   // TODO: Check for 'R' key to restart game
   // HINT: Use key === 'r' || key === 'R'
   // Only works when game is over
