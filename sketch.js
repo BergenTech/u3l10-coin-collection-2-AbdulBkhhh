@@ -56,7 +56,7 @@ function drawPlayer() {
 
 function drawCoin() {
   fill(255, 255, 0);  // Yellow coin
-  circle(coinX, coinY, 10);
+  circle(coinX, coinY, 15);
 }
 
 function drawObstacle() {
@@ -91,6 +91,7 @@ function movePlayer() {
 function moveObstacle() {
   obstacleY+=speed
   if(obstacleY>=height){
+    obstacleX = random(width)
     obstacleY=0
   }
   // TODO: Move obstacle from left to right
@@ -102,6 +103,10 @@ function moveObstacle() {
 }
 
 function checkCoinCollection() {
+  if(dist(playerX,playerY,coinX,coinY)<15){
+    score++
+    initializeGame()
+  }
   // TODO: Check if player touches coin
   // HINT: Use dist(playerX, playerY, coinX, coinY)
   // If distance < 15:
@@ -111,6 +116,13 @@ function checkCoinCollection() {
 }
 
 function checkCollisions() {
+  if(dist(playerX,playerY,obstacleX,obstacleY)<20){
+    hits++
+    initializeGame()
+  }
+  if(hits>=3){
+    gameOver = true;
+  }
   // TODO: Check if player hits obstacle
   // HINT: Similar to coin collection
   // If hit (distance < 20):
@@ -129,6 +141,17 @@ function displayStats() {
 }
 
 function displayGameOver() {
+  background(220)
+  fill(0)
+  textAlign(CENTER, CENTER)
+  textSize(40)
+  text("Game Over", 200,200)
+  fill(0)
+  textSize(15)
+  text("Final Score:"+score,200,225)
+  fill(0)
+  textSize(25)
+  text("Press R to Restart",200,250)
   // TODO: Show game over screen
   // HINT: Use textAlign(CENTER, CENTER)
   // Show:
@@ -144,6 +167,11 @@ function newCoin() {
 }
 
 function resetGame() {
+  score = 0
+  hits = 0
+  speed = 3
+  gameOver = false;
+  initializeGame()
   // TODO: Reset all game variables
   // HINT: Reset score, hits, speed
   // Set gameOver to false
@@ -151,6 +179,7 @@ function resetGame() {
 }
 
 function keyPressed() {
+  
   // TODO: Check for 'R' key to restart game
   // HINT: Use key === 'r' || key === 'R'
   // Only works when game is over
